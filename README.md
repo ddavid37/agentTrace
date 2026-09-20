@@ -1,10 +1,16 @@
 # AgentTrace
 
-AgentTrace is an independent research and engineering project. It investigates a single question:
+Unwanted and unsafe tool utilazations operating by the agent are the ultimate outcome of mistakes the has been run down the road much ealier. The user is mostly see only the problem through the tool call or the outpu -- after the unwanted action as been taken already.
+
+**AgentTrace** is an independent research and engineering project. It investigates a single question:
 
 **Can we detect when an AI agent is moving toward an unsafe outcome by analyzing its trajectory before the final tool call?**
 
-The project is not a production security product and is not a clone of any commercial agent-security platform. It exists to make agent execution, telemetry, detection, and enforcement observable enough to study experimentally.
+The project is not a production security product and is not a clone of any commercial agent-security platform. It exists to make agent execution, telemetry, detection, and enforcement observable enough to study experimentally on the go with the different agents. 
+
+
+
+****Benchmarks****
 
 ## Why trajectory analysis
 
@@ -38,14 +44,16 @@ shared/         schemas and configuration
 
 Separation of concerns in this slice:
 
-| Layer | Responsibility |
-| --- | --- |
-| Agent | Chooses the next action |
-| Executor | The only path that may invoke a tool |
-| Tool | Performs a local synthetic operation |
-| Telemetry | Records what happened as `AgentEvent` records |
-| Detector | Observes a trajectory and emits `SecuritySignal` values |
+
+| Layer         | Responsibility                                          |
+| ------------- | ------------------------------------------------------- |
+| Agent         | Chooses the next action                                 |
+| Executor      | The only path that may invoke a tool                    |
+| Tool          | Performs a local synthetic operation                    |
+| Telemetry     | Records what happened as `AgentEvent` records           |
+| Detector      | Observes a trajectory and emits `SecuritySignal` values |
 | Policy engine | Maps signals to `ALLOW`, `BLOCK`, or `REQUIRE_APPROVAL` |
+
 
 Detectors do not mutate agent state. Tools cannot be invoked by the agent loop without creating telemetry. Policy is not embedded inside individual tools.
 
@@ -85,9 +93,9 @@ Implemented now:
 
 Planned for later comparison, not implemented:
 
-2. Tool allowlist
-3. LLM-as-judge
-4. Richer trajectory analysis
+1. Tool allowlist
+2. LLM-as-judge
+3. Richer trajectory analysis
 
 The research goal is comparison, not a predetermined winner.
 
@@ -112,6 +120,8 @@ Scenarios are expected to declare:
 - Benchmark harness and statistical metrics
 - Human approval UI
 - Runtime integration with MCP servers or production tools
+
+
 
 ## How to run
 
